@@ -42,6 +42,10 @@ public class StopThreadSafe {
     public static class ChangeObjectThread extends Thread {
         volatile boolean stop = false;
 
+        public ChangeObjectThread() {
+            super();
+        }
+
         public void needStop() {
             stop = true;
         }
