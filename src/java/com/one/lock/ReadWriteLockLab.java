@@ -25,6 +25,7 @@ public class ReadWriteLockLab {
         try {
             lock.lock();
             Thread.sleep(1000);
+            System.out.println(value);
             return value;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -39,6 +40,7 @@ public class ReadWriteLockLab {
             lock.lock();
             Thread.sleep(1000);
             value = index;
+            System.out.println(value);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -70,14 +72,17 @@ public class ReadWriteLockLab {
                 }
             }
         };
-
+        long l = System.currentTimeMillis();
         for (int i =0; i<18;i++) {
             new Thread(readRunnable).start();
+            // 读线程不阻塞
         }
 
         for (int i =18; i<20;i++) {
+            // 写线程相互阻塞
             new Thread(writeRunnable).start();
         }
+        System.out.println(System.currentTimeMillis()-l);
     }
 
 }
